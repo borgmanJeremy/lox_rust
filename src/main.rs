@@ -1,8 +1,10 @@
+use lox::parser;
+use lox::scanner;
 use std::env;
 use std::fs;
 use std::io::{self, Read, Write};
 use std::path::Path;
-use lox::scanner;
+
 fn read_from_file(filename: &Path) -> Result<String, std::io::Error> {
     let contents = fs::read_to_string(filename.to_str().unwrap());
     match contents {
@@ -14,7 +16,6 @@ fn read_from_file(filename: &Path) -> Result<String, std::io::Error> {
 struct Interpreter {
     had_error: bool,
 }
-
 
 impl Interpreter {
     fn error(&self, line: i32, message: &str) {
@@ -47,10 +48,10 @@ fn run(contents: &str) {
     let mut scan = lox::scanner::Scanner::new();
     let tokens = scan.scan_tokens(contents);
     // println!("{:?}",tokens);
-
 }
 
 fn main() {
+    let temp = lox::parser::Parser::new();
     let args: Vec<String> = env::args().collect();
 
     match args.len() {

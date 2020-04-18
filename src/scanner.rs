@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 // TODO: it would be fun to replace this with a functional iterator based approach
-#[derive(Debug, Clone,PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum TokenType {
     // Single-character tokens.
     LeftParen,
