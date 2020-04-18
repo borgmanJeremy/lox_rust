@@ -19,8 +19,8 @@
                     "kind": "bin"
                 }
             },
-            //"args": ["lox.txt"],
-            "args": [],
+            "args": ["lox.txt"],
+            //"args": [],
             "cwd": "${workspaceFolder}"
         },
         {

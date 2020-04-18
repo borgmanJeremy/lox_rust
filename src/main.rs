@@ -47,7 +47,11 @@ fn run_prompt() {
 fn run(contents: &str) {
     let mut scan = lox::scanner::Scanner::new();
     let tokens = scan.scan_tokens(contents);
-    // println!("{:?}",tokens);
+
+    let mut parse = lox::parser::Parser::new();
+    parse.tokens = tokens.clone();
+    let ast = parse.expression();
+    println!("{:?}",ast);
 }
 
 fn main() {

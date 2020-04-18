@@ -55,6 +55,7 @@ pub enum TokenType {
 pub enum Literal {
     Numeric(f64),
     Text(String),
+    boolean(bool),
     Nil,
 }
 
