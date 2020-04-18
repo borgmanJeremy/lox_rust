@@ -1,5 +1,6 @@
 use std::collections::HashMap;
-#[derive(Debug,Clone)]
+// TODO: it would be fun to replace this with a functional iterator based approach
+#[derive(Debug, Clone,PartialEq)]
 pub enum TokenType {
     // Single-character tokens.
     LeftParen,
@@ -21,7 +22,7 @@ pub enum TokenType {
     EqualEqual,
     Greater,
     GreaterEqual,
-    LESS,
+    Less,
     LessEqual,
 
     // Literals.
@@ -50,19 +51,19 @@ pub enum TokenType {
     Eof,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 pub enum Literal {
     Numeric(f64),
     Text(String),
     Nil,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 pub struct Token {
-    token_type: TokenType,
-    lexeme: String,
-    literal: Literal,
-    line: i32,
+    pub token_type: TokenType,
+    pub lexeme: String,
+    pub literal: Literal,
+    pub line: i32,
 }
 
 fn init_keywords() -> HashMap<String, TokenType> {
@@ -111,7 +112,7 @@ impl Scanner {
         }
     }
 
-    pub fn scan_tokens(&mut self, source: &str) ->Vec<Token>{
+    pub fn scan_tokens(&mut self, source: &str) -> Vec<Token> {
         while !self.is_at_end(source) {
             self.start = self.current;
             self.scan_token(source);
@@ -166,7 +167,7 @@ impl Scanner {
                 if self.match_next('=', source) {
                     self.add_token(TokenType::LessEqual, Literal::Nil, source);
                 } else {
-                    self.add_token(TokenType::LESS, Literal::Nil, source);
+                    self.add_token(TokenType::Less, Literal::Nil, source);
                 }
             }
             '>' => {
@@ -286,7 +287,7 @@ impl Scanner {
     }
 
     fn add_token(&mut self, ttype: TokenType, literal: Literal, source: &str) {
-        let text = &source[self.start ..self.current ];
+        let text = &source[self.start..self.current];
         self.tokens.push(Token {
             token_type: ttype,
             lexeme: String::from(text),
